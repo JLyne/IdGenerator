@@ -17,7 +17,8 @@ class IdGeneratorSetup {
 	public static function onExtensionFunction() {
 		self::$factory = new IdGeneratorFactory();
 
-		$GLOBALS['wgHooks']['ParserFirstCallInit'][] = function ( Parser &$parser ) {
+		$hookContainer = MediaWikiServices::getInstance()->getHookContainer();
+		$hookContainer->register('ParserFirstCallInit', function ( Parser &$parser ) {
 			foreach ( [ 'next_number', 'nextnumber' ] as $functionName ) {
 				$parser->setFunctionHook(
 					$functionName,
@@ -33,7 +34,7 @@ class IdGeneratorSetup {
 					}
 				);
 			}
-		};
+		});
 	}
 
 }
