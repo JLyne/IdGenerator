@@ -26,8 +26,6 @@ class DatabaseIdGenerator implements IdGenerator {
 
 		$database->endAtomic( __METHOD__ );
 
-		$this->loadBalancer->reuseConnection( $database );
-
 		return $id;
 	}
 
